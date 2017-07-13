@@ -1,0 +1,18 @@
+version: 2
+services:
+  ${CAN_DO_PREFIX}-employee-nodejs:
+    image: 'tomaszni/nodejs-mongodb-crud:${DOCKER_TAG}'
+    environment:
+      - 'constraint:pool_id==default'
+      - >-
+        occs:description=Nodejs application
+    ports:
+      - '80${CAN_DO_PREFIX}:3000/tcp'
+    links:
+      - '${CAN_DO_PREFIX}-mongodb:mongodb'
+  ${CAN_DO_PREFIX}-mongodb:
+    image: 'mongo:3.2.8'
+    environment:
+      - >-
+        occs:description=The official MongoDB image. This example is provided
+        as-is for educational purposes and should not be used in production.

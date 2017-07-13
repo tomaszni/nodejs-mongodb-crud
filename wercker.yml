@@ -1,8 +1,10 @@
 box: node:6.10
+
 build:
   steps:
     # A step that executes `npm install` command
     - npm-install
+
 push:
   steps:
     # Push to public docker repo
@@ -13,3 +15,34 @@ push:
         repository: $DOCKER_REPOSITORY
         registry: https://index.docker.io/v1/
         cmd: node pipeline/source/app.js
+
+deploy-to-occs:
+  steps:
+    - install-packages:
+        packages: gettext
+
+    - script:
+        name: merge json, yaml and env into deployment descriptor
+        code: |
+          echo "Merging json, yaml and environment variables into deployment descriptor"
+          cat deployment.json | YAML_CONTENT=$(cat stack.yaml | envsubst | node escape-to-json.js) envsubst > body.json
+    - script:
+        name: create or update deployment
+        code: >
+          echo "Invoking curl"
+          &&
+          curl -fk -X POST
+          "${OCCS_URL}/api/v2/deployments/"
+          -H 'accept: application/json'
+          -H "authorization: Bearer ${OCCS_TOKEN}"
+          -H 'cache-control: no-cache'
+          -H 'content-type: application/json'
+          -d '@body.json'
+          ||
+          curl -fk -X PUT
+          "${OCCS_URL}/api/v2/deployments/$(node -p 'require("./body.json").deployment_id')"
+          -H 'accept: application/json'
+          -H "authorization: Bearer ${OCCS_TOKEN}"
+          -H 'cache-control: no-cache'
+          -H 'content-type: application/json'
+          -d '@body.json'

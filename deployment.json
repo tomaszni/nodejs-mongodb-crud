@@ -1,0 +1,14 @@
+{
+    "deployment_id": "${CAN_DO_PREFIX}-employee-nodejs-mongodb",
+    "deployment_name": "${CAN_DO_PREFIX}-employee-nodejs-mongodb",
+    "desired_state": 1,
+    "placement": {
+        "pool_id": "default"
+    },
+    "stack": {
+        "content": ${YAML_CONTENT},
+        "service_id": "${CAN_DO_PREFIX}-employee-nodejs-mongodb",
+        "service_name": "${CAN_DO_PREFIX}-employee-nodejs-mongodb",
+        "subtype": "stack"
+    }
+}
