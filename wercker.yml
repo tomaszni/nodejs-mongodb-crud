@@ -47,13 +47,10 @@ deploy-to-occs:
           -H 'cache-control: no-cache'
           -H 'content-type: application/json'
           -d '@body.json'
-      
-    - script:
-          restart-occs:
 
     - peternagy/oracle-occs-container-util:
         occs_user: $OCCS_USER
         occs_password: $OCCS_PASSWORD
         rest_server_url: $OCCS_URL
         function: restart
-		    deployment_name: $(node -p 'require("./body.json").deployment_id')
+        deployment_name: $(node -p 'require("./body.json").deployment_id')
