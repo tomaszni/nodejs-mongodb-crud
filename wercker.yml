@@ -53,4 +53,4 @@ deploy-to-occs:
         occs_password: $OCCS_PASSWORD
         rest_server_url: $OCCS_URL
         function: restart
-        deployment_name: $(node -p 'require("./body.json").deployment_id')
+        deployment_name: ${CAN_DO_PREFIX}-employee-nodejs-mongodb
