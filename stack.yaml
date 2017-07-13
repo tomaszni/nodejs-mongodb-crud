@@ -1,7 +1,7 @@
 version: 2
 services:
   ${CAN_DO_PREFIX}-employee-nodejs:
-    image: '${DOCKER_REPOSITORY}:${WERCKER_GIT_COMMIT}'
+    image: '${DOCKER_REPOSITORY}:${DOCKER_TAG}'
     environment:
       - 'constraint:pool_id==default'
       - >-
