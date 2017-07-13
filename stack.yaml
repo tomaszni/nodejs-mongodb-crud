@@ -1,7 +1,7 @@
 version: 2
 services:
   ${CAN_DO_PREFIX}-employee-nodejs:
-    image: 'tomaszni/nodejs-mongodb-crud:${DOCKER_TAG}'
+    image: '${DOCKER_REPOSITORY}:${WERCKER_GIT_COMMIT}'
     environment:
       - 'constraint:pool_id==default'
       - >-
