@@ -7,6 +7,7 @@ It is based on
 
 + includes Wercker configuration
 + application changes to run on Oracle Container Cloud Service
++ automated environment provisioning
 
 ### How to run
 
